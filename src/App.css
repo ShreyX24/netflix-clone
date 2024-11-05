@@ -1,0 +1,104 @@
+:root {
+  --sys-bg-color: #141414;
+  --sys-text-color: #e4e4e4;
+  --sys-hover-text-color: #a5a5a5;
+
+  --sys-bg-image-color: #141414;
+  --sys-bg-image-middle-color: #141414c9;
+  --sys-bg-image-gradient-color: #14141400;
+}
+
+body {
+  background-color: var(--sys-bg-color);
+  color: var(--sys-text-color);
+  overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+  width: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: #646464;
+}
+
+.system {
+  overflow: hidden;
+  max-width: 2553px;
+  min-height: 200vh;
+}
+
+.navbar {
+  -webkit-box-shadow: inset 0px 57px 300px -135px rgba(0, 0, 0, 1);
+  -moz-box-shadow: inset 0px 57px 300px -135px rgba(0, 0, 0, 1);
+  box-shadow: inset 0px 57px 300px -135px rgba(0, 0, 0, 1);
+}
+
+.nav-btn:hover {
+  color: var(--sys-hover-text-color);
+  transition: all 200ms ease-in-out;
+}
+
+.nav-search {
+  background-color: var(--sys-bg-color);
+  color: var(--sys-text-color);
+  border: 1px solid var(--sys-text-color);
+  outline: none;
+  padding-left: 34px;
+  padding-right: 34px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.img-wrap:before {
+  content: "";
+  background-image: linear-gradient(
+    to top,
+    var(--sys-bg-image-color),
+    var(--sys-bg-image-middle-color),
+    var(--sys-bg-image-gradient-color)
+  );
+  position: absolute;
+  height: 300px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.item .img-wrap:after {
+  content: "";
+  display: block;
+  height: 9999px;
+}
+.img-wrap .img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+  box-shadow: 0px 2px 10px 0px var(--sys-bg-image-color);
+  -ms-interpolation-mode: bicubic;
+}
+
+#title-name {
+  -webkit-box-shadow: inset 0px -61px 105px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px -61px 105px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px -61px 105px 0px rgba(0, 0, 0, 0.75);
+}
+
+.scroll-btns {
+  -webkit-box-shadow: inset 0px 0px 300px 46px rgba(0, 0, 0, 0.44);
+  -moz-box-shadow: inset 0px 0px 300px 46px rgba(0, 0, 0, 0.44);
+  box-shadow: inset 0px 0px 300px 46px rgba(0, 0, 0, 0.44);
+}
+
+.scroll-btns:hover {
+  -webkit-box-shadow: inset 0px 0px 300px 46px rgba(0, 0, 0, 0.71);
+  -moz-box-shadow: inset 0px 0px 300px 46px rgba(0, 0, 0, 0.71);
+  box-shadow: inset 0px 0px 300px 46px rgba(0, 0, 0, 0.71);
+  transition: all 200ms ease-in-out;
+}
