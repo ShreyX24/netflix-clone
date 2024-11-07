@@ -63,7 +63,7 @@ export const Navbar = () => {
           ? "inset 0px 0px 287px 120px rgba(0,0,0,0.75)"
           : "",
       }}
-      className="fixed transition-all duration-500 delay-200 ease-in-out navbar"
+      className="top-0 left-0 fixed transition-all duration-500 delay-200 ease-in-out navbar z-50"
     >
       <div className="w-full h-full flex items-center">
         {/* logo */}

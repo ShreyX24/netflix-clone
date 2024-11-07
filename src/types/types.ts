@@ -25,6 +25,7 @@ export interface MovieResponse {
 
 export interface PopularMovie {
     data: MovieResponse | undefined;
+    headerTitle: string;
     // loading: boolean;
     // error: ApolloError | undefined;
 }
@@ -35,4 +36,28 @@ export interface BgImageProps {
 export interface FeaturedAboutProps {
     title_name?: string;
     title_desc?: string;
+}
+
+export interface ScrollButtonsProps {
+    movieCardRef: React.MutableRefObject<HTMLDivElement | null>;
+
+    isCardsDivHovered: boolean;
+    setIsCardsDivHovered: React.Dispatch<React.SetStateAction<boolean>>;
+
+    isLScrollBtnHovered: boolean;
+    setIsLScrollBtnHovered: React.Dispatch<React.SetStateAction<boolean>>;
+
+    isRScrollBtnHovered: boolean;
+    setIsRScrollBtnHovered: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export interface TitleHeaderProps {
+    headerTitle: string;
+    exploreDivRef: React.MutableRefObject<HTMLSpanElement | null>;
+
+    isHeaderDivHovered: boolean;
+    setIsHeaderDivHovered: React.Dispatch<React.SetStateAction<boolean>>;
+
+    isExploreDivHovered: boolean;
+    setIsExploreDivHovered: React.Dispatch<React.SetStateAction<boolean>>;
 }

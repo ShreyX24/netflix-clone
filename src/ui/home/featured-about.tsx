@@ -12,7 +12,7 @@ export const FeaturedAbout = ({
 
         {/* title description */}
         <div>
-          <span className="text-3xl">{title_desc}</span>
+          <span className="text-3xl line-clamp-3">{title_desc}</span>
         </div>
 
         {/* UI Btns */}

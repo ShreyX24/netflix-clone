@@ -28,7 +28,7 @@ body::-webkit-scrollbar-track {
 }
 
 .system {
-  overflow: hidden;
+  /* overflow: hidden; */
   max-width: 2553px;
   min-height: 200vh;
 }

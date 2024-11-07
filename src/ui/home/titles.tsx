@@ -1,35 +1,21 @@
-import { useEffect, useState } from "react";
-import { TitleCards } from "../../components/title-cards";
-import { gql, useQuery } from "@apollo/client";
-import { MovieResponse } from "../../types/types";
+import { TitleCards } from "../../components/titles/title-cards";
+import { useGetPopularMovies } from "../../graphql/fetch/movPopular";
+import { useGetTopRatedMovies } from "../../graphql/fetch/movTopRated";
+import { useGetNowPlayingMovies } from "../../graphql/fetch/movNowPlaying";
+import { useGetUpcomingMovies } from "../../graphql/fetch/movUpcoming";
 
 export const Titles = () => {
-  const [movPopularData, setMovPopularData] = useState<MovieResponse | undefined>(undefined);
-
-  const GET_POPULAR_MOVIES = gql`
-    query {
-      movPopular {
-        results {
-          id
-          original_title
-          backdrop_path
-          original_language
-          poster_path
-        }
-      }
-    }
-  `;
-
-  const { data } = useQuery(GET_POPULAR_MOVIES);
-  useEffect(() => {
-    if (data) {
-      setMovPopularData(data.movPopular);
-    }
-  }, [data]);
+  const movPopularData = useGetPopularMovies();
+  const movTopRatedData = useGetTopRatedMovies();
+  const movUpcomingData = useGetUpcomingMovies();
+  const movNowPlayingData = useGetNowPlayingMovies();
 
   return (
     <div className="w-screen flex flex-col">
-      <TitleCards data={movPopularData}/>
+      <TitleCards headerTitle="Popular" data={movPopularData} />
+      {/* <TitleCards headerTitle="Top Rated" data={movTopRatedData} />
+      <TitleCards headerTitle="Upcoming" data={movUpcomingData} />
+      <TitleCards headerTitle="Now Playing" data={movNowPlayingData} /> */}
     </div>
   );
 };

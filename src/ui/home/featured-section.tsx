@@ -42,7 +42,6 @@ export const FeaturedSection = () => {
         Math.random() * data.movPopular.results.length
       );
       const randomTitleId = data.movPopular.results[randomNum];
-      console.log(randomTitleId);
 
       if (randomTitleId) {
         setMovPopularData(randomTitleId);
