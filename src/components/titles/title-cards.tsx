@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Movie, PopularMovie } from "../../types/types";
 import { MovieCard } from "./movie-card";
 import { TitleHeader } from "./title-header";
-import { ScrollButtons } from "./scroll-buttons";
+import { ScrollButtonLeft } from "./scroll-button-left";
+import { ScrollButtonRight } from "./scroll-button-right";
 
 export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
   // usestate
@@ -15,10 +16,17 @@ export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
   const [isRScrollBtnHovered, setIsRScrollBtnHovered] =
     useState<boolean>(false);
   const [movData, setMovData] = useState<Movie[]>([]);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   // Refs
   const exploreDivRef = useRef<HTMLSpanElement | null>(null);
   const movieCardRef = useRef<HTMLDivElement | null>(null);
+
+  // other defs
+  const cardWidth = 395;
+  const cardMargin = 8;
+  const cardsPerPage = 6;
+  const maxIndex = Math.max(0, 20);
 
   useEffect(() => {
     if (data?.results) {
@@ -27,7 +35,11 @@ export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
   }, [data]);
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-5">
+    <div
+      className="w-full h-full flex flex-col items-center justify-center gap-5"
+      onMouseOver={() => setIsCardsDivHovered(true)}
+      onMouseOut={() => setIsCardsDivHovered(false)}
+    >
       {/* header */}
       <TitleHeader
         headerTitle={headerTitle}
@@ -40,15 +52,17 @@ export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
 
       {/* title cards wrapper*/}
       <div className="w-screen flex items-center">
-        {/* scroll buttons */}
-        <ScrollButtons
+        {/* Right Scroll button */}
+        <ScrollButtonLeft
           movieCardRef={movieCardRef}
           isCardsDivHovered={isCardsDivHovered}
-          setIsCardsDivHovered={setIsCardsDivHovered}
           isLScrollBtnHovered={isLScrollBtnHovered}
           setIsLScrollBtnHovered={setIsLScrollBtnHovered}
-          isRScrollBtnHovered={isRScrollBtnHovered}
-          setIsRScrollBtnHovered={setIsRScrollBtnHovered}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          cardWidth={cardWidth}
+          cardMargin={cardMargin}
+          cardsPerPage={cardsPerPage}
         />
         {/* Movie cards */}
         <div
@@ -64,9 +78,24 @@ export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
                 key={index}
                 fallback_img={item?.backdrop_path}
                 movie_id={item?.id}
+                
               />
             ))}
         </div>
+
+        {/* Right Scroll button */}
+        <ScrollButtonRight
+          movieCardRef={movieCardRef}
+          isCardsDivHovered={isCardsDivHovered}
+          isRScrollBtnHovered={isRScrollBtnHovered}
+          setIsRScrollBtnHovered={setIsRScrollBtnHovered}
+          maxIndex={maxIndex}
+          currentIndex={currentIndex}
+          setCurrentIndex={setCurrentIndex}
+          cardWidth={cardWidth}
+          cardMargin={cardMargin}
+          cardsPerPage={cardsPerPage}
+        />
       </div>
     </div>
   );

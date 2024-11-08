@@ -38,17 +38,36 @@ export interface FeaturedAboutProps {
     title_desc?: string;
 }
 
-export interface ScrollButtonsProps {
+
+export interface ScrollButtonLeftProps {
     movieCardRef: React.MutableRefObject<HTMLDivElement | null>;
 
     isCardsDivHovered: boolean;
-    setIsCardsDivHovered: React.Dispatch<React.SetStateAction<boolean>>;
 
     isLScrollBtnHovered: boolean;
     setIsLScrollBtnHovered: React.Dispatch<React.SetStateAction<boolean>>;
 
+    currentIndex: number;
+    setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+    cardWidth: number;
+    cardMargin: number;
+    cardsPerPage: number;
+}
+
+export interface ScrollButtonRightProps {
+    movieCardRef: React.MutableRefObject<HTMLDivElement | null>;
+
+    isCardsDivHovered: boolean;
+
     isRScrollBtnHovered: boolean;
     setIsRScrollBtnHovered: React.Dispatch<React.SetStateAction<boolean>>;
+
+    currentIndex: number;
+    maxIndex: number;
+    setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
+    cardWidth: number;
+    cardMargin: number;
+    cardsPerPage: number;
 }
 
 export interface TitleHeaderProps {
