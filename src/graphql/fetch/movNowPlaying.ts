@@ -13,6 +13,6 @@ export const GET_NOWPLAYING_MOVIES = gql`
 `;
 
 export const useGetNowPlayingMovies = () => {
-    const { data } = useQuery(GET_NOWPLAYING_MOVIES);
-    return data?.movNowPlaying;
+  const { data, loading } = useQuery(GET_NOWPLAYING_MOVIES);
+  return { data: data?.movNowPlaying, loading };
 }

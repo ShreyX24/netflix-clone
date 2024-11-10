@@ -29,10 +29,10 @@ export const ScrollButtonRight = ({
   };
   return (
     <button
-      className="h-full scroll-btns flex items-center justify-center absolute right-0"
+      className="h-full scroll-btns flex items-center justify-center absolute right-0 z-20 rounded-md mt-[60px]"
       style={{
-        height: "220px",
-        width: "70px",
+        height: "222px",
+        width: "80px",
       }}
       onClick={handleScrollRight}
       onMouseOver={() => setIsRScrollBtnHovered(true)}

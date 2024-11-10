@@ -26,7 +26,7 @@ export interface MovieResponse {
 export interface PopularMovie {
     data: MovieResponse | undefined;
     headerTitle: string;
-    // loading: boolean;
+    loading: boolean;
     // error: ApolloError | undefined;
 }
 

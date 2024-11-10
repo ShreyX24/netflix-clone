@@ -14,6 +14,6 @@ export const GET_TOPRATED_MOVIES = gql`
 `;
 
 export const useGetTopRatedMovies = () => {
-  const { data } = useQuery(GET_TOPRATED_MOVIES);
-  return data?.movTopRated;
+  const { data, loading } = useQuery(GET_TOPRATED_MOVIES);
+  return { data: data?.movTopRated, loading };
 };

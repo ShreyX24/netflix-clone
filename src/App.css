@@ -6,6 +6,13 @@
   --sys-bg-image-color: #141414;
   --sys-bg-image-middle-color: #141414c9;
   --sys-bg-image-gradient-color: #14141400;
+
+  --loading-card-bg-color-1: #5a5a5a;
+  --loading-card-bg-color-2: #505050;
+  --loading-card-bg-color-3: #444444;
+  --loading-card-bg-color-4: #3f3f3f;
+  --loading-card-bg-color-5: #3a3a3a;
+  --loading-card-bg-color-6: #2e2e2e;
 }
 
 body {
@@ -101,4 +108,62 @@ body::-webkit-scrollbar-track {
   -moz-box-shadow: inset 0px 0px 300px 46px rgba(0, 0, 0, 0.71);
   box-shadow: inset 0px 0px 300px 46px rgba(0, 0, 0, 0.71);
   transition: all 200ms ease-in-out;
+}
+.movie-card {
+  background: var(--sys-bg-color);
+}
+
+.movie-card-hovered {
+  -webkit-box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.75);
+}
+
+/** For skeleton card animation */
+@keyframes cycleColors {
+  0% {
+    background-color: #5a5a5a;
+  }
+  20% {
+    background-color: #505050;
+  }
+  40% {
+    background-color: #444444;
+  }
+  60% {
+    background-color: #3f3f3f;
+  }
+  80% {
+    background-color: #3a3a3a;
+  }
+  100% {
+    background-color: #2e2e2e;
+  }
+}
+
+.skeleton-card {
+  animation: cycleColors 2s infinite ease-in-out;
+  min-width: 395px;
+  width: 395px;
+  min-height: 220px;
+}
+
+/* Offset animations starting from the first card */
+.skeleton-card:nth-child(1) {
+  animation-delay: 0s;
+}
+.skeleton-card:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.skeleton-card:nth-child(3) {
+  animation-delay: 0.8s;
+}
+.skeleton-card:nth-child(4) {
+  animation-delay: 1.2s;
+}
+.skeleton-card:nth-child(5) {
+  animation-delay: 1.6s;
+}
+.skeleton-card:nth-child(6) {
+  animation-delay: 2s;
 }

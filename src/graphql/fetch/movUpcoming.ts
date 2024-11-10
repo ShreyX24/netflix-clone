@@ -13,6 +13,6 @@ export const GET_UPCOMING_MOVIES = gql`
 `;
 
 export const useGetUpcomingMovies = () => {
-  const { data } = useQuery(GET_UPCOMING_MOVIES);
-  return data?.movUpcoming;
+  const { data, loading } = useQuery(GET_UPCOMING_MOVIES);
+  return { data: data?.movUpcoming, loading };
 }

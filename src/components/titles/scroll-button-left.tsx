@@ -23,7 +23,7 @@ export const ScrollButtonLeft = ({
 
   return (
     <button
-      className="h-full scroll-btns flex items-center justify-center rotate-180 z-20 absolute"
+      className="h-full scroll-btns flex items-center justify-center rotate-180 z-20 absolute rounded-md mt-[60px]"
       style={{
         height: "220px",
         width: "70px",

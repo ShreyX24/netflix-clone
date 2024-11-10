@@ -4,8 +4,9 @@ import { MovieCard } from "./movie-card";
 import { TitleHeader } from "./title-header";
 import { ScrollButtonLeft } from "./scroll-button-left";
 import { ScrollButtonRight } from "./scroll-button-right";
+import { MovieCardSkel } from "./skeleton/movieCardSkel";
 
-export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
+export const TitleCards = ({ headerTitle, data, loading }: PopularMovie) => {
   // usestate
   const [isHeaderDivHovered, setIsHeaderDivHovered] = useState<boolean>(false);
   const [isExploreDivHovered, setIsExploreDivHovered] =
@@ -36,7 +37,7 @@ export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
 
   return (
     <div
-      className="w-full h-full flex flex-col items-center justify-center gap-5"
+      className="w-full h-full flex flex-col items-center justify-center"
       onMouseOver={() => setIsCardsDivHovered(true)}
       onMouseOut={() => setIsCardsDivHovered(false)}
     >
@@ -51,7 +52,7 @@ export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
       />
 
       {/* title cards wrapper*/}
-      <div className="w-screen flex items-center">
+      <div className="w-screen flex items-start relative">
         {/* Right Scroll button */}
         <ScrollButtonLeft
           movieCardRef={movieCardRef}
@@ -67,20 +68,29 @@ export const TitleCards = ({ headerTitle, data }: PopularMovie) => {
         {/* Movie cards */}
         <div
           ref={movieCardRef}
-          className="flex gap-2 ml-[70px] overflow-hidden"
+          className="flex gap-2 ml-[70px] overflow-hidden pt-[60px] pb-[80px]"
           style={{ scrollBehavior: "smooth" }}
         >
           {/* each card */}
 
-          {movData &&
-            movData.map((item, index) => (
-              <MovieCard
-                key={index}
-                fallback_img={item?.backdrop_path}
-                movie_id={item?.id}
-                
-              />
-            ))}
+          {loading ? (
+            <MovieCardSkel />
+          ) : (
+            <>
+              {movData ? (
+                movData.map((item, index) => (
+                  <MovieCard
+                    key={index}
+                    fallback_img={item?.backdrop_path}
+                    movie_id={item?.id}
+                    index={index}
+                  />
+                ))
+              ) : (
+                <MovieCardSkel />
+              )}
+            </>
+          )}
         </div>
 
         {/* Right Scroll button */}

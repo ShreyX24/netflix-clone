@@ -14,6 +14,6 @@ export const GET_POPULAR_MOVIES = gql`
 `;
 
 export const useGetPopularMovies = () => {
-  const { data } = useQuery(GET_POPULAR_MOVIES);
-  return data?.movPopular;
+  const { data, loading } = useQuery(GET_POPULAR_MOVIES);
+  return { data: data?.movPopular, loading };
 };

@@ -12,10 +12,26 @@ export const Titles = () => {
 
   return (
     <div className="w-screen flex flex-col">
-      <TitleCards headerTitle="Popular" data={movPopularData} />
-      {/* <TitleCards headerTitle="Top Rated" data={movTopRatedData} />
-      <TitleCards headerTitle="Upcoming" data={movUpcomingData} />
-      <TitleCards headerTitle="Now Playing" data={movNowPlayingData} /> */}
+      <TitleCards
+        headerTitle="Popular"
+        data={movPopularData.data}
+        loading={movPopularData.loading}
+      />
+      <TitleCards
+        headerTitle="Top Rated"
+        data={movTopRatedData.data}
+        loading={movTopRatedData.loading}
+      />
+      <TitleCards
+        headerTitle="Upcoming"
+        data={movUpcomingData.data}
+        loading={movUpcomingData.loading}
+      />
+      <TitleCards
+        headerTitle="Now Playing"
+        data={movNowPlayingData.data}
+        loading={movNowPlayingData.loading}
+      />
     </div>
   );
 };
