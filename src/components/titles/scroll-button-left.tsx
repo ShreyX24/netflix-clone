@@ -7,17 +7,24 @@ export const ScrollButtonLeft = ({
   setIsLScrollBtnHovered,
   currentIndex,
   setCurrentIndex,
-  cardWidth,
-  cardMargin,
-  cardsPerPage,
 }: ScrollButtonLeftProps) => {
   const handleScrollLeft = () => {
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
-      movieCardRef.current?.scrollBy({
-        left: -(cardWidth + cardMargin) * cardsPerPage,
-        behavior: "smooth",
-      });
+      const cards = movieCardRef.current?.children;
+      if (cards) {
+        // Find the target card (7 positions back)
+        const targetIndex = Math.max((currentIndex - 1) * 7, 0);
+        const targetCard = cards[targetIndex] as HTMLElement;
+
+        if (targetCard) {
+          targetCard.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
+          });
+        }
+      }
     }
   };
 

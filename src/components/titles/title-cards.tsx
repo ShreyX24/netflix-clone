@@ -23,12 +23,6 @@ export const TitleCards = ({ headerTitle, data, loading }: PopularMovie) => {
   const exploreDivRef = useRef<HTMLSpanElement | null>(null);
   const movieCardRef = useRef<HTMLDivElement | null>(null);
 
-  // other defs
-  const cardWidth = 395;
-  const cardMargin = 8;
-  const cardsPerPage = 6;
-  const maxIndex = Math.max(0, 20);
-
   useEffect(() => {
     if (data?.results) {
       setMovData(data?.results);
@@ -37,19 +31,22 @@ export const TitleCards = ({ headerTitle, data, loading }: PopularMovie) => {
 
   return (
     <div
-      className="w-full h-full flex flex-col items-center justify-center"
+      className="w-full h-full flex flex-col items-center justify-start relative"
+      // style={{ marginTop: index > 0 ? `${index * 420}px` : "0px" }}
       onMouseOver={() => setIsCardsDivHovered(true)}
       onMouseOut={() => setIsCardsDivHovered(false)}
     >
       {/* header */}
-      <TitleHeader
-        headerTitle={headerTitle}
-        exploreDivRef={exploreDivRef}
-        isHeaderDivHovered={isHeaderDivHovered}
-        isExploreDivHovered={isExploreDivHovered}
-        setIsHeaderDivHovered={setIsHeaderDivHovered}
-        setIsExploreDivHovered={setIsExploreDivHovered}
-      />
+      <div className="sticky top-0">
+        <TitleHeader
+          headerTitle={headerTitle}
+          exploreDivRef={exploreDivRef}
+          isHeaderDivHovered={isHeaderDivHovered}
+          isExploreDivHovered={isExploreDivHovered}
+          setIsHeaderDivHovered={setIsHeaderDivHovered}
+          setIsExploreDivHovered={setIsExploreDivHovered}
+        />
+      </div>
 
       {/* title cards wrapper*/}
       <div className="w-screen flex items-start relative">
@@ -61,14 +58,11 @@ export const TitleCards = ({ headerTitle, data, loading }: PopularMovie) => {
           setIsLScrollBtnHovered={setIsLScrollBtnHovered}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
-          cardWidth={cardWidth}
-          cardMargin={cardMargin}
-          cardsPerPage={cardsPerPage}
         />
         {/* Movie cards */}
         <div
           ref={movieCardRef}
-          className="flex gap-2 ml-[70px] overflow-hidden pt-[60px] pb-[80px]"
+          className="flex gap-2 ml-[70px]  pt-[60px] pb-[100px] overflow-hidden"
           style={{ scrollBehavior: "smooth" }}
         >
           {/* each card */}
@@ -99,12 +93,8 @@ export const TitleCards = ({ headerTitle, data, loading }: PopularMovie) => {
           isCardsDivHovered={isCardsDivHovered}
           isRScrollBtnHovered={isRScrollBtnHovered}
           setIsRScrollBtnHovered={setIsRScrollBtnHovered}
-          maxIndex={maxIndex}
           currentIndex={currentIndex}
           setCurrentIndex={setCurrentIndex}
-          cardWidth={cardWidth}
-          cardMargin={cardMargin}
-          cardsPerPage={cardsPerPage}
         />
       </div>
     </div>

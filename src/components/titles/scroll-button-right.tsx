@@ -6,30 +6,43 @@ export const ScrollButtonRight = ({
   setIsRScrollBtnHovered,
   isCardsDivHovered,
   currentIndex,
-  maxIndex,
   setCurrentIndex,
-  cardWidth,
-  cardMargin,
-  cardsPerPage,
 }: ScrollButtonRightProps) => {
   const handleScrollRight = () => {
-    if (currentIndex < maxIndex) {
-      setCurrentIndex(currentIndex + 1);
-      movieCardRef.current?.scrollBy({
-        left: (cardWidth + cardMargin) * cardsPerPage,
-        behavior: "smooth",
-      });
-    } else {
-      setCurrentIndex(0);
-      movieCardRef.current?.scrollTo({
-        left: 0,
-        behavior: "smooth",
-      });
+    const cards = movieCardRef.current?.children;
+    if (cards) {
+      // Calculate the next set's start index
+      const nextSetIndex = (currentIndex + 1) * 7;
+
+      // Check if we have enough cards to scroll forward
+      if (nextSetIndex < cards.length) {
+        setCurrentIndex(currentIndex + 1);
+        const targetCard = cards[nextSetIndex] as HTMLElement;
+
+        if (targetCard) {
+          targetCard.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
+          });
+        }
+      } else {
+        // Reset to beginning if we're at the end
+        setCurrentIndex(0);
+        const firstCard = cards[0] as HTMLElement;
+        if (firstCard) {
+          firstCard.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
+          });
+        }
+      }
     }
   };
   return (
     <button
-      className="h-full scroll-btns flex items-center justify-center absolute right-0 z-20 rounded-md mt-[60px]"
+      className="h-full scroll-btns flex items-center justify-center absolute right-0 z-[20] rounded-md mt-[60px]"
       style={{
         height: "222px",
         width: "80px",

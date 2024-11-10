@@ -32,7 +32,7 @@ export const MovieCard = ({
     const baseStyles = {
       transform: isMovieCardHovered ? `scale(${scale})` : "scale(1)",
       transformOrigin: getTransformOrigin(),
-      zIndex: isMovieCardHovered ? 10 : 1,
+      zIndex: isMovieCardHovered ? 30 : 1,
       transition: "transform 0.3s ease, width 0.3s ease, height 0.3s ease",
     };
 
@@ -48,12 +48,12 @@ export const MovieCard = ({
 
   return (
     <div
+      id={`${index}`}
       className="flex flex-col items-center justify-start cursor-pointer relative"
       style={{
         minWidth: "395px",
-        width: isMovieCardHovered ? "455px" : "395px",
+        width: "395px",
         minHeight: "220px",
-        ...getHoverStyles(),
       }}
       onMouseOver={handleMovieCardHoveredOn}
       onMouseOut={handleMovieCardHoveredOff}
@@ -67,13 +67,33 @@ export const MovieCard = ({
         alt=""
         className="object-contain rounded-md relative"
       />
-      {isMovieCardHovered ? (
-        <div className=" h-[120px] w-full z-20 movie-card movie-card-hovered">
-          
-        </div>
-      ) : (
-        <></>
-      )}
+
+      <div
+        className="flex flex-col items-center justify-start cursor-pointer absolute"
+        style={{
+          minWidth: "395px",
+          width: isMovieCardHovered ? "480px" : "395px",
+          minHeight: "220px",
+          ...getHoverStyles(),
+        }}
+        onMouseOver={handleMovieCardHoveredOn}
+        onMouseOut={handleMovieCardHoveredOff}
+      >
+        <img
+          src={`${imgUrl}${
+            movPopularData?.backdrops[0]?.file_path === undefined
+              ? fallback_img
+              : movPopularData?.backdrops[0]?.file_path
+          }`}
+          alt=""
+          className="object-contain rounded-md relative"
+        />
+        {isMovieCardHovered ? (
+          <div className=" h-[120px] w-full z-20 movie-card movie-card-hovered"></div>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 };

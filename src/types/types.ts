@@ -49,9 +49,6 @@ export interface ScrollButtonLeftProps {
 
     currentIndex: number;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-    cardWidth: number;
-    cardMargin: number;
-    cardsPerPage: number;
 }
 
 export interface ScrollButtonRightProps {
@@ -63,11 +60,8 @@ export interface ScrollButtonRightProps {
     setIsRScrollBtnHovered: React.Dispatch<React.SetStateAction<boolean>>;
 
     currentIndex: number;
-    maxIndex: number;
     setCurrentIndex: React.Dispatch<React.SetStateAction<number>>;
-    cardWidth: number;
-    cardMargin: number;
-    cardsPerPage: number;
+
 }
 
 export interface TitleHeaderProps {
