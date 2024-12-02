@@ -16,23 +16,50 @@ export const TitleCards = ({ headerTitle, data, loading }: PopularMovie) => {
     useState<boolean>(false);
   const [isRScrollBtnHovered, setIsRScrollBtnHovered] =
     useState<boolean>(false);
-  const [movData, setMovData] = useState<Movie[]>([]);
+  const [titleData, setTitleData] = useState<Movie[]>([]);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [isDataFetching, setIsDataFetching] = useState<boolean>(true);
 
   // Refs
   const exploreDivRef = useRef<HTMLSpanElement | null>(null);
   const movieCardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
+    // Reset data fetching state when data changes
+    setIsDataFetching(loading);
+
     if (data?.results) {
-      setMovData(data?.results);
+      setTitleData(data?.results);
+      setIsDataFetching(false);
     }
-  }, [data]);
+  }, [data, loading]);
+
+  // Render skeleton or loading indicator
+  const renderLoadingState = () => {
+    return (
+      <div className="flex gap-2">
+        {[...Array(6)].map((_, index) => (
+          <MovieCardSkel key={index} />
+        ))}
+      </div>
+    );
+  };
+
+  // Render actual movie cards
+  const renderMovieCards = () => {
+    return titleData.map((item, index) => (
+      <MovieCard
+        key={item.id}
+        fallback_img={item?.backdrop_path}
+        movie_id={item?.id}
+        index={index}
+      />
+    ));
+  };
 
   return (
     <div
-      className="w-full h-full flex flex-col items-center justify-start relative"
-      // style={{ marginTop: index > 0 ? `${index * 420}px` : "0px" }}
+      className="w-full h-full flex flex-col items-start justify-start relative"
       onMouseOver={() => setIsCardsDivHovered(true)}
       onMouseOut={() => setIsCardsDivHovered(false)}
     >
@@ -62,29 +89,10 @@ export const TitleCards = ({ headerTitle, data, loading }: PopularMovie) => {
         {/* Movie cards */}
         <div
           ref={movieCardRef}
-          className="flex gap-2 ml-[70px]  pt-[60px] pb-[100px] overflow-hidden"
+          className="flex gap-2 ml-[70px] pt-[60px] pb-[100px] overflow-hidden"
           style={{ scrollBehavior: "smooth" }}
         >
-          {/* each card */}
-
-          {loading ? (
-            <MovieCardSkel />
-          ) : (
-            <>
-              {movData ? (
-                movData.map((item, index) => (
-                  <MovieCard
-                    key={index}
-                    fallback_img={item?.backdrop_path}
-                    movie_id={item?.id}
-                    index={index}
-                  />
-                ))
-              ) : (
-                <MovieCardSkel />
-              )}
-            </>
-          )}
+          {isDataFetching ? renderLoadingState() : renderMovieCards()}
         </div>
 
         {/* Right Scroll button */}

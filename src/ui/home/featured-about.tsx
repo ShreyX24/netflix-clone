@@ -40,11 +40,11 @@ export const FeaturedAbout = ({
       </div>
       <div className="w-1/2 flex justify-end">
         <div
-          className="h-8 w-[150px] mb-[200px] flex items-center gap-5 text-lg font-semibold"
+          className="h-14 w-[220px] mb-[200px] flex items-center gap-5 text-3xl"
           style={{ backgroundColor: "#4d4d4d86" }}
         >
           <div
-            className="w-1 h-full bg-white"
+            className="w-1 h-full bg-[#ccc]"
             style={{ backgroundColor: "#e4e4e4" }}
           ></div>
           <span>U/A 13+</span>

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useGetImages } from "../../graphql/fetch/movImages";
+import { useAppDispatch } from "../../redux/storeConfig";
+import { openModal } from "../../redux/modalSlice";
 
 type MovieCardProps = {
   movie_id: string;
@@ -12,11 +14,13 @@ export const MovieCard = ({
   fallback_img,
   index,
 }: MovieCardProps) => {
+  const dispatch = useAppDispatch(); // Use the typed dispatch hook
+
   const [isMovieCardHovered, setIsMovieCardHovered] = useState<boolean>(false);
 
   const imgUrl = "https://image.tmdb.org/t/p/original";
 
-  const movPopularData = useGetImages(movie_id);
+  const titleData = useGetImages(movie_id);
 
   const isFirstInSet = index % 6 === 0;
   const isLastInSet = index % 6 === 5;
@@ -46,6 +50,10 @@ export const MovieCard = ({
     setIsMovieCardHovered(false);
   };
 
+  const handleOpenModal = () => {
+    dispatch(openModal(movie_id)); // Dispatch the openModal action with the movie ID
+  };
+
   return (
     <div
       id={`${index}`}
@@ -60,9 +68,9 @@ export const MovieCard = ({
     >
       <img
         src={`${imgUrl}${
-          movPopularData?.backdrops[0]?.file_path === undefined
+          titleData?.backdrops[0]?.file_path === undefined
             ? fallback_img
-            : movPopularData?.backdrops[0]?.file_path
+            : titleData?.backdrops[0]?.file_path
         }`}
         alt=""
         className="object-contain rounded-md relative"
@@ -81,15 +89,46 @@ export const MovieCard = ({
       >
         <img
           src={`${imgUrl}${
-            movPopularData?.backdrops[0]?.file_path === undefined
+            titleData?.backdrops[0]?.file_path === undefined
               ? fallback_img
-              : movPopularData?.backdrops[0]?.file_path
+              : titleData?.backdrops[0]?.file_path
           }`}
           alt=""
           className="object-contain rounded-md relative"
         />
+        {/* btns div */}
         {isMovieCardHovered ? (
-          <div className=" h-[120px] w-full z-20 movie-card movie-card-hovered"></div>
+          <div className="absolute h-full w-full flex items-center justify-center movie-card movie-card-hovered">
+            <img
+              src={`${imgUrl}${
+                titleData?.backdrops[0]?.file_path === undefined
+                  ? fallback_img
+                  : titleData?.backdrops[0]?.file_path
+              }`}
+              alt=""
+              className="object-contain rounded-md relative"
+            />
+            <div className="absolute w-full h-full movie-card-hovered flex items-end justify-center gap-5">
+              <div className="flex gap-[6px]">
+                <button className="bg-white  hover:bg-gray-300 w-[44px] h-[44px] rounded-full flex items-center justify-center">
+                  <img src="/icons/play.png" alt="" width={17} />
+                </button>
+                <button className=" w-[44px] h-[44px] hover:border-white border-gray-300 border-[2px] rounded-full flex items-center justify-center">
+                  <img src="/icons/plus.png" alt="" width={20} />
+                </button>
+                <button className=" w-[44px] h-[44px] hover:border-white border-gray-300 border-[2px] rounded-full flex items-center justify-center">
+                  <img src="/icons/like.png" alt="" width={20} />
+                </button>
+              </div>
+
+              <button
+                className=" w-[44px] h-[44px] hover:border-white border-gray-300 border-[2px] rounded-full flex items-center justify-center rotate-90"
+                onClick={handleOpenModal}
+              >
+                <img src="/icons/arrow-right_w.png" alt="" width={18} />
+              </button>
+            </div>
+          </div>
         ) : (
           <></>
         )}

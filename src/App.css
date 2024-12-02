@@ -13,7 +13,6 @@
   --loading-card-bg-color-4: #3f3f3f;
   --loading-card-bg-color-5: #3a3a3a;
   --loading-card-bg-color-6: #2e2e2e;
-
 }
 
 body {
@@ -115,9 +114,9 @@ body::-webkit-scrollbar-track {
 }
 
 .movie-card-hovered {
-  -webkit-box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 3px 13px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: inset 0px 0px 174px 22px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: inset 0px 0px 174px 22px rgba(0, 0, 0, 0.75);
+  box-shadow: inset 0px 0px 174px 22px rgba(0, 0, 0, 0.75);
 }
 
 /** For skeleton card animation */
@@ -167,4 +166,55 @@ body::-webkit-scrollbar-track {
 }
 .skeleton-card:nth-child(6) {
   animation-delay: 2s;
+}
+
+.title-modal {
+  box-shadow: inset 0px 0px 300px 84px rgba(0, 0, 0, 0.75);
+  background: #0000007c;
+}
+
+/* .img-wrap-modal:before {
+  content: "";
+  background-image: linear-gradient(to top, #181818, #181818, #18181802);
+  position: absolute;
+  height: 300px;
+  width: 50%;
+  right: 0;
+  bottom: 30%;
+  left: 25%;
+}
+.img-wrap-modal:after {
+  content: "";
+  display: block;
+  height: 10px;
+}
+.img-wrap-modal .img-modal {
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+  box-shadow: 0px 2px 10px 0px var(--sys-bg-image-color);
+  -ms-interpolation-mode: bicubic;
+} */
+
+.img-wrap-modal:before {
+  content: "";
+  background-image: linear-gradient(to top, #181818, #181818, #18181802);
+  position: absolute;
+  height: 300px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.item .img-wrap-modal:after {
+  content: "";
+  display: block;
+  height: 9999px;
+}
+.img-wrap-modal .img-modal {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+  border: 0;
+  -ms-interpolation-mode: bicubic;
 }

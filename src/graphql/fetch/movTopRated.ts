@@ -1,5 +1,6 @@
 // graphql/fetch/movTopRated.ts
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { createRetryableQuery } from "../../utils/gql-retry-query";
 
 export const GET_TOPRATED_MOVIES = gql`
   query {
@@ -8,12 +9,14 @@ export const GET_TOPRATED_MOVIES = gql`
         id
         original_title
         backdrop_path
+        
       }
     }
   }
 `;
 
-export const useGetTopRatedMovies = () => {
-  const { data, loading } = useQuery(GET_TOPRATED_MOVIES);
-  return { data: data?.movTopRated, loading };
-};
+export const useGetTopRatedMovies = createRetryableQuery(
+  GET_TOPRATED_MOVIES,
+  'movTopRated',
+  { maxRetries: 10, retryDelay: 1000 }
+);

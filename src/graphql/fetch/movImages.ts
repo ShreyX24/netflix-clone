@@ -1,7 +1,7 @@
 // graphql/fetch/movImages.ts
 import { gql, useQuery } from "@apollo/client";
 
-export const GET_IMAGES = (movieFetchImagesId: string) => gql`
+export const GET_IMAGES = (movieFetchImagesId: string | null) => gql`
   query{
   movieFetchImages(id: ${movieFetchImagesId}) {
     backdrops {
@@ -13,7 +13,7 @@ export const GET_IMAGES = (movieFetchImagesId: string) => gql`
 }
 `;
 
-export const useGetImages = (movieFetchImagesId: string) => {
-    const { data } = useQuery(GET_IMAGES(movieFetchImagesId));
-    return data?.movieFetchImages;
+export const useGetImages = (movieFetchImagesId: string | null) => {
+  const { data } = useQuery(GET_IMAGES(movieFetchImagesId));
+  return data?.movieFetchImages;
 };

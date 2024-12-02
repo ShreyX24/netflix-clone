@@ -15,21 +15,25 @@ export const useTitleCardsData = () => {
       header: "Popular",
       data: movPopularData.data,
       loading: movPopularData.loading,
+      retryCount: movPopularData.retryCount,
     },
     {
       header: "Top Rated",
       data: movTopRatedData.data,
       loading: movTopRatedData.loading,
+      retryCount: movTopRatedData.retryCount,
     },
     {
       header: "Upcoming",
       data: movUpcomingData.data,
       loading: movUpcomingData.loading,
+      retryCount: movUpcomingData.retryCount,
     },
     {
       header: "Now Playing",
       data: movNowPlayingData.data,
       loading: movNowPlayingData.loading,
+      retryCount: movNowPlayingData.retryCount,
     },
   ];
 

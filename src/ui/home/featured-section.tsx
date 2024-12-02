@@ -1,7 +1,8 @@
 import { FeaturedAbout } from "./featured-about";
 import { BgImage } from "./featured-bg-image";
 import { useEffect, useState } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import { GET_POPULAR_MOVIES } from "../../graphql/fetch/movPopular";
 
 interface movPopularResponse {
   id: string;
@@ -11,21 +12,6 @@ interface movPopularResponse {
   poster_path: string;
   overview: string;
 }
-
-const GET_POPULAR_MOVIES = gql`
-  query {
-    movPopular {
-      results {
-        id
-        original_title
-        backdrop_path
-        original_language
-        poster_path
-        overview
-      }
-    }
-  }
-`;
 
 export const FeaturedSection = () => {
   const [movPopularData, setMovPopularData] = useState<

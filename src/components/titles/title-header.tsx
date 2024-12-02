@@ -10,7 +10,7 @@ export const TitleHeader = ({
 }: TitleHeaderProps) => {
   return (
     <div
-      className="flex font-semibold justify-start items-end h-[70px] cursor-pointer"
+      className="flex font-semibold justify-start items-end h-[70px] cursor-pointer ml-[75px]"
       style={{
         // gap: isExploreDivHovered ? "20px" : "0px",
         width: 2410,

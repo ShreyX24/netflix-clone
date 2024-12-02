@@ -5,13 +5,14 @@ export const Titles = () => {
   const titleCardsData = useTitleCardsData();
   return (
     <div className="w-screen flex flex-col">
-      {titleCardsData.map((section) => (
-        <TitleCards
-          headerTitle={section.header}
-          data={section.data}
-          loading={section.loading}
-        />
-      ))}
+      {titleCardsData &&
+        titleCardsData.map((section) => (
+          <TitleCards
+            headerTitle={section.header}
+            data={section.data}
+            loading={section.loading}
+          />
+        ))}
     </div>
   );
 };

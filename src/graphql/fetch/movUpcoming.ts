@@ -1,4 +1,5 @@
-import { gql, useQuery } from "@apollo/client";
+import { gql } from "@apollo/client";
+import { createRetryableQuery } from "../../utils/gql-retry-query";
 
 export const GET_UPCOMING_MOVIES = gql`
   query {
@@ -12,7 +13,8 @@ export const GET_UPCOMING_MOVIES = gql`
     }
 `;
 
-export const useGetUpcomingMovies = () => {
-  const { data, loading } = useQuery(GET_UPCOMING_MOVIES);
-  return { data: data?.movUpcoming, loading };
-}
+export const useGetUpcomingMovies = createRetryableQuery(
+  GET_UPCOMING_MOVIES,
+  'movUpcoming',
+  { maxRetries: 10, retryDelay: 1000 }
+);
