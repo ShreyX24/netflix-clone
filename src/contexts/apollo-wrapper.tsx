@@ -6,7 +6,7 @@ type ApolloWrapperProps = {
 
 const ApolloWrapper = ({ children }: ApolloWrapperProps) => {
   const client = new ApolloClient({
-    uri: "http://localhost:3001/graphql",
+    uri: "https://netflix-server-one.vercel.app/graphql",
     cache: new InMemoryCache(),
   });
 
