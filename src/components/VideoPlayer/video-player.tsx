@@ -9,6 +9,8 @@ import {
   SkipForward,
   SkipBack,
 } from "lucide-react";
+import { Params, useParams } from "react-router-dom";
+import { useGetMovDetails } from "../../graphql/fetch/movDetails";
 
 export const VideoPlayer = () => {
   // Video state management
@@ -18,19 +20,18 @@ export const VideoPlayer = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [showControls, setShowControls] = useState(true);
+  const [showCursor, setShowCursor] = useState(true);
 
   // Refs
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
 
-  // Extract the movie ID from the URL params
-  //   const { id } = useParams<{ id: string }>();
-  //   const titleImageData = useGetImages(id === undefined ? "402431" : id);
-
   const src = "/videos/video1.mp4";
 
-  //   const poster = `${imgUrl}${titleImageData?.backdrops[0]?.file_path}`;
+  const params: Readonly<Params<string>> = useParams();
+  const title_id = params?.title_id;
+  const title_data = useGetMovDetails(title_id as string);
 
   // Play/Pause toggle
   const togglePlay = () => {
@@ -106,34 +107,55 @@ export const VideoPlayer = () => {
 
   // Automatic controls hide
   useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
+    let controlsTimeoutId: ReturnType<typeof setTimeout>;
+    let cursorTimeoutId: ReturnType<typeof setTimeout>;
     const currentContainer = containerRef.current;
 
-    const hideControls = () => {
+    const hideControlsAndCursor = () => {
       if (isPlaying) {
-        timeoutId = setTimeout(() => {
+        controlsTimeoutId = setTimeout(() => {
           setShowControls(false);
+          setShowCursor(false);
         }, 3000);
       }
     };
 
-    const resetTimeout = () => {
-      clearTimeout(timeoutId);
+    const resetTimeouts = () => {
+      clearTimeout(controlsTimeoutId);
+      clearTimeout(cursorTimeoutId);
       setShowControls(true);
-      hideControls();
+      setShowCursor(true);
+      hideControlsAndCursor();
     };
 
     if (currentContainer) {
-      currentContainer.addEventListener("mousemove", resetTimeout);
-      hideControls();
-    }
+      // Add event listeners for mouse movement and idle state
+      const handleMouseMove = () => {
+        resetTimeouts();
+      };
 
-    return () => {
-      if (currentContainer) {
-        currentContainer.removeEventListener("mousemove", resetTimeout);
-      }
-      clearTimeout(timeoutId);
-    };
+      const handleMouseLeave = () => {
+        // If mouse leaves the container and video is playing, start the hide timeout
+        if (isPlaying) {
+          controlsTimeoutId = setTimeout(() => {
+            setShowControls(false);
+            setShowCursor(false);
+          }, 3000);
+        }
+      };
+
+      currentContainer.addEventListener("mousemove", handleMouseMove);
+      currentContainer.addEventListener("mouseleave", handleMouseLeave);
+
+      hideControlsAndCursor();
+
+      return () => {
+        currentContainer.removeEventListener("mousemove", handleMouseMove);
+        currentContainer.removeEventListener("mouseleave", handleMouseLeave);
+        clearTimeout(controlsTimeoutId);
+        clearTimeout(cursorTimeoutId);
+      };
+    }
   }, [isPlaying]);
 
   // Volume change handler
@@ -149,20 +171,20 @@ export const VideoPlayer = () => {
   return (
     <div
       ref={containerRef}
-      className="relative w-full bg-black group flex items-center justify-center"
-      onMouseEnter={() => setShowControls(true)}
-      onMouseLeave={() => {
-        if (isPlaying) setShowControls(false);
-      }}
+      className={`relative w-full bg-black group flex items-center justify-center 
+        ${!showCursor ? "cursor-none" : ""}`}
     >
       {/* Video Element */}
       <video
         ref={videoRef}
         src={src}
-        // poster={poster}
         className="w-[2300px] h-auto"
         onTimeUpdate={handleProgress}
-        onEnded={() => setIsPlaying(false)}
+        onEnded={() => {
+          setIsPlaying(false);
+          setShowControls(true);
+          setShowCursor(true);
+        }}
       />
 
       {/* Custom Controls Overlay */}
@@ -192,8 +214,8 @@ export const VideoPlayer = () => {
               />
             </div>
 
-            <div className="flex justify-between items-center  w-full">
-              <div className="flex items-center space-x-4">
+            <div className="flex justify-between items-center w-full relative">
+              <div className="flex items-center space-x-4 z-20">
                 {/* Play/Pause */}
                 <button onClick={togglePlay}>
                   {isPlaying ? <Pause /> : <Play />}
@@ -210,7 +232,7 @@ export const VideoPlayer = () => {
                 </button>
 
                 {/* Volume */}
-                <div className="flex items-center">
+                <div className="flex items-center ">
                   <button onClick={toggleMute}>
                     {isMuted ? <VolumeX /> : <Volume2 />}
                   </button>
@@ -227,14 +249,14 @@ export const VideoPlayer = () => {
               </div>
 
               {/* title name */}
-              <div className="flex justify-center items-center text-white absolute w-full -z-10">
+              <div className="flex justify-center items-center text-white absolute w-full z-10 cursor-default">
                 <h2 className="text-xl font-bold w-full flex justify-center items-center">
-                  Video Title
+                  {title_data?.original_title}
                 </h2>
               </div>
 
               {/* Fullscreen */}
-              <div className="flex items-center">
+              <div className="flex items-center z-20">
                 <button onClick={toggleFullScreen}>
                   {isFullScreen ? <Minimize /> : <Maximize2 />}
                 </button>

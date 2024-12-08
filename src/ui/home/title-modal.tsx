@@ -102,7 +102,7 @@ export const TitleModal = () => {
 
           {/* more like this */}
           <div className="w-full px-14 flex">
-            <MoreLikeThis />
+            <MoreLikeThis modalContentRef={modalContentRef}/>
           </div>
         </div>
       </div>

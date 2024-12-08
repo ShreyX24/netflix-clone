@@ -39,6 +39,7 @@ export const FeaturedSection = () => {
     <div>
       <BgImage img={`${imgUrl}${movPopularData?.backdrop_path}`} />
       <FeaturedAbout
+        title_id={movPopularData?.id}
         title_name={movPopularData?.original_title}
         title_desc={movPopularData?.overview}
       />

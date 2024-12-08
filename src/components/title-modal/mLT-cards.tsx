@@ -1,30 +1,45 @@
-import { useEffect } from "react";
 import { useGetImages } from "../../graphql/fetch/movImages";
 import { useGetMovDetails } from "../../graphql/fetch/movDetails";
+import { openModal } from "../../redux/modalSlice";
+import { useAppDispatch } from "../../redux/storeConfig";
 
 interface MLTCardsProps {
   titleId: string;
   fallback_img: string;
+  modalContentRef: React.RefObject<HTMLDivElement>;
 }
 
-export const MLTCards = ({ titleId, fallback_img }: MLTCardsProps) => {
+export const MLTCards = ({
+  titleId,
+  fallback_img,
+  modalContentRef,
+}: MLTCardsProps) => {
+  const dispatch = useAppDispatch(); // Use the typed dispatch hook
+
   const imgUrl = "https://image.tmdb.org/t/p/original";
 
   const titleImageData = useGetImages(titleId);
   const titleMetaData = useGetMovDetails(titleId);
 
-  useEffect(() => {
-    console.log(titleMetaData);
-  }, [titleMetaData]);
-
   const getYear = (releaseDate: string): string => {
     return releaseDate.split("-")[0]; // Splits by "-" and takes the first part
   };
 
+  const handleOpenModal = () => {
+    dispatch(openModal(titleId));
+
+    if (modalContentRef.current) {
+      modalContentRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
   return (
-    <div className="w-[400px] h-[390px] rounded-md">
+    <div className="w-[380px] h-[360px] rounded-md">
       {/* title img container */}
-      <div>
+      <div onClick={handleOpenModal} className="cursor-pointer">
         <img
           src={`${imgUrl}${
             titleImageData?.backdrops[0]?.file_path === undefined

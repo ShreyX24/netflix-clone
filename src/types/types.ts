@@ -34,6 +34,7 @@ export interface BgImageProps {
     img: string
 }
 export interface FeaturedAboutProps {
+    title_id: string | undefined;
     title_name?: string;
     title_desc?: string;
 }

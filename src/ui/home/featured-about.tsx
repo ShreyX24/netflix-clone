@@ -1,9 +1,18 @@
+import { useNavigate } from "react-router-dom";
 import { FeaturedAboutProps } from "../../types/types";
 
 export const FeaturedAbout = ({
+  title_id,
   title_name,
   title_desc,
 }: FeaturedAboutProps) => {
+  const navigate = useNavigate();
+
+  const handlePlayClick = () => {
+    // Navigate to the video route with the movie ID
+    navigate(`/video/${title_id}`);
+  };
+
   return (
     <div className="w-screen h-[1000px] mt-14 flex items-end justify-end">
       <div className="w-1/2 ml-[75px] mb-[200px] flex flex-col gap-10">
@@ -19,6 +28,7 @@ export const FeaturedAbout = ({
         <div className="flex items-center gap-2 font-semibold text-lg">
           {/* Play btn */}
           <button
+            onClick={handlePlayClick}
             className="flex items-center px-8 py-2 gap-2 rounded-md"
             style={{ backgroundColor: "#e4e4e4", color: "#141414" }}
           >

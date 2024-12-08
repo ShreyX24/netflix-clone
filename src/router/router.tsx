@@ -10,7 +10,7 @@ const routes: RouteObject[] = [
     errorElement: <ErrorPage />,
   },
   {
-    path: "/video/:id",
+    path: "/video/:title_id",
     element: <VideoPlayer />,
     errorElement: <ErrorPage />,
   },
